@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afkar Media | Web Design, Accounting Systems, Ads & Videos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        body[dir="ltr"] {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Language Switcher Styles */
+        .language-switcher {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 1001;
+        }
+
+        .lang-btn {
+            background: transparent;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .lang-btn.active {
+            background: var(--secondary-color);
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* تحسينات شريط الصور المتحرك - لعرض الصور كاملة */
+        .hero-slider {
+            position: relative;
+            height: auto;
+            overflow: hidden;
+            margin-top: 70px;
+            background-color: #f5f5f5;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+
+        .slide-image img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .slide-content {
+            width: 100%;
+            height: 30%;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .slide-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.3);
+            border-color: white;
+        }
+
+        .slider-dot:hover {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 768px) {
+            .slider-container {
+                height: 550px;
+            }
+            
+            .slide-content {
+                padding: 1.5rem;
+            }
+            
+            .slide-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .slide-content p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .slider-container {
+                height: 500px;
+            }
+            
+            .slide-image {
+                height: 60%;
+            }
+            
+            .slide-content {
+                height: 40%;
+                padding: 1rem;
+            }
+            
+            .slide-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .slide-content p {
+                font-size: 0.9rem;
+            }
+            
+            .slider-dot {
+                width: 12px;
+                height: 12px;
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .portfolio-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.1);
+        }
+
+        .video-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            opacity: 0.9;
+            cursor: pointer;
+        }
+
+        .portfolio-item:hover .video-play-icon {
+            background-color: var(--accent-color);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .portfolio-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-price {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: var(--light-color);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Services Section */
+        .services-section {
+            background-color: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* Board of Directors Section */
+        .board-section {
+            background-color: white;
+            padding: 4rem 0;
+        }
+
+        .board-members {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .board-card {
+            text-align: center;
+            max-width: 350px;
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .board-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .board-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            border: 5px solid var(--secondary-color);
+        }
+
+        .board-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .board-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .board-position {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .board-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--light-color);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .contact-text h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-text p {
+            color: #666;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .website-preview {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .website-preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Video Player Styles */
+        .video-player {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+
+        .video-container iframe,
+        .video-container video {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-top: 1px solid #eee;
+        }
+
+        .video-quality-selector {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+        }
+
+        .whatsapp-btn i {
+            margin-left: 8px;
+            font-size: 1.2rem;
+        }
+
+        /* Floating WhatsApp Button */
+        .floating-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .floating-whatsapp:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary-color);
+            padding-right: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: var(--primary-color);
+                transition: var(--transition);
+                padding: 2rem;
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0 0 1.5rem 0;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+            
+            .board-members {
+                gap: 2rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .website-preview {
+                height: 300px;
+            }
+            
+            .floating-whatsapp {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .board-img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .video-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="ar">العربية</button>
+        <button class="lang-btn" data-lang="en">English</button>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-img">
+                        <img src="https://i.imgur.com/QS6s2QL.jpg" alt="Logo">
+                    </div>
+                    <span data-ar="Afkar" data-en="Afkar">Afkar </span> <span data-ar=" Media" data-en="  Media"> Media</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav>
+                    <ul>
+                        <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                        <li><a href="#services" data-ar="خدماتنا" data-en="Our Services">خدماتنا</a></li>
+                        <li><a href="#websites" data-ar="تصميم المواقع" data-en="Web Design">تصميم المواقع</a></li>
+                        <li><a href="#accounting" data-ar="أنظمة المحاسبة" data-en="Accounting Systems">أنظمة المحاسبة</a></li>
+                        <li><a href="#ads" data-ar="الإعلانات الممولة" data-en="Ads">الإعلانات الممولة</a></li>
+                        <li><a href="#videos" data-ar="الفيديوهات" data-en="Videos">الفيديوهات</a></li>
+                        <li><a href="#about" data-ar="عن الشركة" data-en="About">عن الشركة</a></li>
+                        <li><a href="#contact" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Slider -->
+    <section class="hero-slider" id="home">
+        <div class="slider-container" id="sliderContainer">
+            <!-- Slides will be added dynamically -->
+        </div>
+        <div class="slider-nav" id="sliderNav">
+            <!-- Dots will be added dynamically -->
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ar="خدماتنا" data-en="Our Services">خدماتنا</h2>
+                <p data-ar="نقدم مجموعة متكاملة من الحلول الرقمية لتطوير أعمالك" data-en="We provide a comprehensive set of digital solutions to develop your business">نقدم مجموعة متكاملة من الحلول الرقمية لتطوير أعمالك</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 data-ar="تصميم المواقع" data-en="Website Design">تصميم المواقع</h3>
+                    <p data-ar="نصمم مواقع ويب احترافية متوافقة مع جميع الأجهزة وتواكب أحدث التقنيات لضمان تجربة مستخدم فريدة" data-en="We design professional websites compatible with all devices and keep up with the latest technologies to ensure a unique user experience">نصمم مواقع ويب احترافية متوافقة مع جميع الأجهزة وتواكب أحدث التقنيات لضمان تجربة مستخدم فريدة</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 data-ar="أنظمة المحاسبة" data-en="Accounting Systems">أنظمة المحاسبة</h3>
+                    <p data-ar="نطور أنظمة محاسبة متكاملة تلبي احتياجات الشركات الصغيرة والمتوسطة لتحسين إدارة العمليات المالية" data-en="We develop integrated accounting systems that meet the needs of small and medium enterprises to improve financial operations management">نطور أنظمة محاسبة متكاملة تلبي احتياجات الشركات الصغيرة والمتوسطة لتحسين إدارة العمليات المالية</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-ad"></i>
+                    </div>
+                    <h3 data-ar="الإعلانات الممولة" data-en="Sponsored Ads">الإعلانات الممولة</h3>
+                    <p data-ar="ننشئ وندير حملات إعلانية ممولة على منصات التواصل الاجتماعي لزيادة وصول علامتك التجارية" data-en="We create and manage sponsored ad campaigns on social media platforms to increase your brand reach">ننشئ وندير حملات إعلانية ممولة على منصات التواصل الاجتماعي لزيادة وصول علامتك التجارية</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 data-ar="الفيديوهات والشعارات" data-en="Videos & Logos">الفيديوهات والشعارات</h3>
+                    <p data-ar="ننتج محتوى مرئي إبداعي يشمل الفيديوهات الإعلانية والشعارات التي تعبر عن هوية علامتك التجارية" data-en="We produce creative visual content including advertising videos and logos that reflect your brand identity">ننتج محتوى مرئي إبداعي يشمل الفيديوهات الإعلانية والشعارات التي تعبر عن هوية علامتك التجارية</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Websites Section -->
+    <section id="websites">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ar="تصميم المواقع الإلكترونية" data-en="Website Design">تصميم المواقع الإلكترونية</h2>
+                <p data-ar="استعرض مجموعة من أحدث تصاميم المواقع التي قمنا بتنفيذها" data-en="Browse a collection of the latest website designs we've implemented">استعرض مجموعة من أحدث تصاميم المواقع التي قمنا بتنفيذها</p>
+            </div>
+            <div class="portfolio-grid" id="websites-grid">
+                <!-- سيتم إضافة المحتوى ديناميكيًا -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Accounting Systems Section -->
+    <section id="accounting">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ar="أنظمة المحاسبة" data-en="Accounting Systems">أنظمة المحاسبة</h2>
+                <p data-ar="أنظمة محاسبة متكاملة تلبي احتياجات الأعمال المختلفة" data-en="Integrated accounting systems that meet various business needs">أنظمة محاسبة متكاملة تلبي احتياجات الأعمال المختلفة</p>
+            </div>
+            <div class="portfolio-grid" id="accounting-grid">
+                <!-- سيتم إضافة المحتوى ديناميكيًا -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Ads Section -->
+    <section id="ads">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ar="الإعلانات الممولة" data-en="Sponsored Ads">الإعلانات الممولة</h2>
+                <p data-ar="تصميم إعلانات جذابة ومؤثرة لتحقيق أقصى عائد على الاستثمار" data-en="Design attractive and impactful ads to maximize return on investment">تصميم إعلانات جذابة ومؤثرة لتحقيق أقصى عائد على الاستثمار</p>
+            </div>
+            <div class="portfolio-grid" id="ads-grid">
+                <!-- سيتم إضافة المحتوى ديناميكيًا -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos & Logos Section -->
+    <section id="videos">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ar="الفيديوهات والشعارات" data-en="Videos & Logos">الفيديوهات والشعارات</h2>
+                <p data-ar="تصميم فيديوهات إعلانية وشعارات احترافية تعبر عن هوية علامتك التجارية" data-en="Design professional advertising videos and logos that reflect your brand identity">تصميم فيديوهات إعلانية وشعارات احترافية تعبر عن هوية علامتك التجارية</p>
+            </div>
+            <div class="portfolio-grid" id="videos-grid">
+                <!-- سيتم إضافة المحتوى ديناميكيًا -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ar="عن الشركة" data-en="About Us">عن الشركة</h2>
+                <p data-ar="تعرف على قصة نجاحنا ورؤيتنا للمستقبل" data-en="Learn about our success story and vision for the future">تعرف على قصة نجاحنا ورؤيتنا للمستقبل</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 data-ar="من نحن" data-en="Who We Are">من نحن</h3>
+                    <p data-ar="تأسست شركة أفكار ميديا عام 2018 كمؤسسة رائدة في تقديم الحلول الرقمية المتكاملة. نحن فريق من المحترفين المبدعين الذين يجمعون بين الخبرة التقنية والإبداع الفني لتقديم حلول مبتكرة تلبي احتياجات عملائنا في مختلف القطاعات." data-en="Afkar Media was established in 2018 as a leading institution in providing integrated digital solutions. We are a team of creative professionals who combine technical expertise and artistic creativity to provide innovative solutions that meet our clients' needs across various sectors.">تأسست شركة أفكار ميديا عام 2018 كمؤسسة رائدة في تقديم الحلول الرقمية المتكاملة. نحن فريق من المحترفين المبدعين الذين يجمعون بين الخبرة التقنية والإبداع الفني لتقديم حلول مبتكرة تلبي احتياجات عملائنا في مختلف القطاعات.</p>
+                    
+                    <h3 data-ar="رؤيتنا" data-en="Our Vision">رؤيتنا</h3>
+                    <p data-ar="نسعى لأن نكون الشريك الرقمي المفضل للشركات والمؤسسات في المنطقة، من خلال تقديم حلول رقمية مبتكرة تساهم في تحويل أفكار عملائنا إلى واقع ملموس ونتائج استثنائية." data-en="We strive to be the preferred digital partner for companies and institutions in the region, by providing innovative digital solutions that contribute to transforming our clients' ideas into tangible reality and exceptional results.">نسعى لأن نكون الشريك الرقمي المفضل للشركات والمؤسسات في المنطقة، من خلال تقديم حلول رقمية مبتكرة تساهم في تحويل أفكار عملائنا إلى واقع ملموس ونتائج استثنائية.</p>
+                    
+                    <h3 data-ar="رسالتنا" data-en="Our Mission">رسالتنا</h3>
+                    <p data-ar="نلتزم بتقديم حلول رقمية متكاملة ومبتكرة تلبي احتياجات عملائنا، وتساعدهم على تحقيق أهدافهم التجارية، وتعزيز وجودهم الرقمي، وزيادة كفاءة عملياتهم من خلال الاستفادة من أحدث التقنيات وأفضل الممارسات في الصناعة." data-en="We are committed to providing integrated and innovative digital solutions that meet our clients' needs, help them achieve their business goals, enhance their digital presence, and increase the efficiency of their operations by leveraging the latest technologies and best practices in the industry.">نلتزم بتقديم حلول رقمية متكاملة ومبتكرة تلبي احتياجات عملائنا، وتساعدهم على تحقيق أهدافهم التجارية، وتعزيز وجودهم الرقمي، وزيادة كفاءة عملياتهم من خلال الاستفادة من أحدث التقنيات وأفضل الممارسات في الصناعة.</p>
+                </div>
+                
+                <div class="about-image">
+                    <img src="https://i.imgur.com/Jyi5cyM.png" alt="Afkar Media Team" data-ar="فريق أفكار ميديا" data-en="Afkar Media Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h2>
+                <p data-ar="نحن هنا للإجابة على استفساراتك وتقديم الدعم الذي تحتاجه" data-en="We are here to answer your inquiries and provide the support you need">نحن هنا للإجابة على استفساراتك وتقديم الدعم الذي تحتاجه</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4 data-ar="عنواننا" data-en="Our Address">عنواننا</h4>
+                            <p data-ar="المدينة، الدولة" data-en="City, Country">المدينة، الدولة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4 data-ar="هاتفنا" data-en="Our Phone">هاتفنا</h4>
+                            <p>0545216239</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4 data-ar="بريدنا الإلكتروني" data-en="Our Email">بريدنا الإلكتروني</h4>
+                            <p>mostafa332004a@gamil.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4 data-ar="ساعات العمل" data-en="Working Hours">ساعات العمل</h4>
+                            <p data-ar="الأحد - الخميس: 9 ص - 5 م" data-en="Sunday - Thursday: 9 AM - 5 PM">الأحد - الخميس: 9 ص - 5 م</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" data-ar="الاسم الكامل" data-en="Full Name">الاسم الكامل</label>
+                            <input type="text" id="name" class="form-control" required data-ar-placeholder="أدخل اسمك الكامل" data-en-placeholder="Enter your full name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" data-ar="البريد الإلكتروني" data-en="Email Address">البريد الإلكتروني</label>
+                            <input type="email" id="email" class="form-control" required data-ar-placeholder="أدخل بريدك الإلكتروني" data-en-placeholder="Enter your email address">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" data-ar="رقم الهاتف" data-en="Phone Number">رقم الهاتف</label>
+                            <input type="tel" id="phone" class="form-control" data-ar-placeholder="أدخل رقم هاتفك" data-en-placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service" data-ar="نوع الخدمة" data-en="Service Type">نوع الخدمة</label>
+                            <select id="service" class="form-control" required>
+                                <option value="" data-ar="اختر الخدمة المطلوبة" data-en="Select required service">اختر الخدمة المطلوبة</option>
+                                <option value="website" data-ar="تصميم موقع إلكتروني" data-en="Website Design">تصميم موقع إلكتروني</option>
+                                <option value="accounting" data-ar="نظام محاسبة" data-en="Accounting System">نظام محاسبة</option>
+                                <option value="ads" data-ar="إعلانات ممولة" data-en="Sponsored Ads">إعلانات ممولة</option>
+                                <option value="videos" data-ar="فيديوهات وشعارات" data-en="Videos & Logos">فيديوهات وشعارات</option>
+                                <option value="other" data-ar="خدمة أخرى" data-en="Other Service">خدمة أخرى</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" data-ar="الرسالة" data-en="Message">الرسالة</label>
+                            <textarea id="message" class="form-control" required data-ar-placeholder="أدخل رسالتك هنا..." data-en-placeholder="Enter your message here..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn" style="width: 100%;" data-ar="إرسال الرسالة" data-en="Send Message">إرسال الرسالة</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Website Preview Modal -->
+    <div class="modal" id="websiteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle" data-ar="معاينة الموقع" data-en="Website Preview">معاينة الموقع</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="website-preview">
+                    <iframe id="websiteFrame" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://wa.me/966545216239?text=أرغب في شراء هذا التصميم" class="whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> <span data-ar="شراء التصميم عبر واتساب" data-en="Buy Design via WhatsApp">شراء التصميم عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Player Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="videoTitle" data-ar="مشاهدة الفيديو" data-en="Watch Video">مشاهدة الفيديو</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="video-player">
+                    <div class="video-container" id="videoContainer">
+                        <!-- سيتم إضافة مشغل الفيديو هنا -->
+                    </div>
+                    <div class="video-controls">
+                        <select class="video-quality-selector" id="qualitySelector">
+                            <option value="auto" data-ar="جودة تلقائية" data-en="Auto Quality">جودة تلقائية</option>
+                            <option value="1080" data-ar="1080p (عالية)" data-en="1080p (High)">1080p (عالية)</option>
+                            <option value="720" data-ar="720p (متوسطة)" data-en="720p (Medium)">720p (متوسطة)</option>
+                            <option value="480" data-ar="480p (منخفضة)" data-en="480p (Low)">480p (منخفضة)</option>
+                        </select>
+                        <button class="btn" id="fullscreenBtn" data-ar="شاشة كاملة" data-en="Fullscreen">شاشة كاملة</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="https://wa.me/966545216239?text=أرغب في شراء هذا الفيديو" class="whatsapp-btn" target="_blank">
+                    <i class="fab fa-whatsapp"></i> <span data-ar="شراء الفيديو عبر واتساب" data-en="Buy Video via WhatsApp">شراء الفيديو عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/966545216239" class="floating-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 data-ar="عن Afkar  Media" data-en="About Afkar Media">عن Afkar  Media</h3>
+                    <p data-ar="نحن فريق متخصص في تقديم حلول رقمية متكاملة تشمل تصميم المواقع، تطوير الأنظمة، تصميم الإعلانات، وإنشاء المحتوى المرئي." data-en="We are a team specialized in providing integrated digital solutions including website design, system development, ad design, and visual content creation.">نحن فريق متخصص في تقديم حلول رقمية متكاملة تشمل تصميم المواقع، تطوير الأنظمة، تصميم الإعلانات، وإنشاء المحتوى المرئي.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=61585608598953"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 data-ar="خدماتنا" data-en="Our Services">خدماتنا</h3>
+                    <ul>
+                        <li><a href="#websites" data-ar="تصميم المواقع الإلكترونية" data-en="Website Design">تصميم المواقع الإلكترونية</a></li>
+                        <li><a href="#accounting" data-ar="أنظمة المحاسبة" data-en="Accounting Systems">أنظمة المحاسبة</a></li>
+                        <li><a href="#ads" data-ar="الإعلانات الممولة" data-en="Sponsored Ads">الإعلانات الممولة</a></li>
+                        <li><a href="#videos" data-ar="الفيديوهات والشعارات" data-en="Videos & Logos">الفيديوهات والشعارات</a></li>
+                        <li><a href="#services" data-ar="خدمات أخرى" data-en="Other Services">خدمات أخرى</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h3>
+                    <ul>
+                        <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                        <li><a href="#about" data-ar="عن الشركة" data-en="About">عن الشركة</a></li>
+                        <li><a href="#board" data-ar="مجلس الإدارة" data-en="Board of Directors">مجلس الإدارة</a></li>
+                        <li><a href="#contact" data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 0545216239</li>
+                        <li><i class="fas fa-envelope"></i> mostafa332004a@gamil.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> <span data-ar="المدينة، الدولة" data-en="City, Country">المدينة، الدولة</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p data-ar="جميع الحقوق محفوظة &copy;  Afkar Media 2023" data-en="All rights reserved &copy; Afkar Media 2023">جميع الحقوق محفوظة &copy; Afkar Media 2023</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // بيانات السلايدر المعدلة مع جميع الصور
+        let sliderItems = [
+            {
+                id: 1,
+                image: 'https://i.imgur.com/Jyi5cyM.png',
+                title: 'مرحباً بكم في Afkar Media',
+                titleEn: 'Welcome to Afkar Media',
+                description: 'نوفر لكم أفضل الحلول الرقمية المتكاملة لتحقيق نجاح أعمالكم',
+                descriptionEn: 'We provide you with the best integrated digital solutions to achieve your business success'
+            },
+            {
+                id: 2,
+                image: 'https://i.imgur.com/kCx9feI.png',
+                title: 'تصميم مواقع احترافية',
+                titleEn: 'Professional Website Design',
+                description: 'تصاميم مبتكرة وجذابة تلبي احتياجات عملك وتواكب أحدث التقنيات',
+                descriptionEn: 'Innovative and attractive designs that meet your business needs and keep up with the latest technologies'
+            },
+            {
+                id: 3,
+                image: 'https://i.imgur.com/wRSlfUD.png',
+                title: 'فيديوهات إعلانية مبدعة',
+                titleEn: 'Creative Advertising Videos',
+                description: 'إبداع بلا حدود في عالم الفيديو لتعزيز حضورك الرقمي',
+                descriptionEn: 'Unlimited creativity in the world of video to enhance your digital presence'
+            },
+            {
+                id: 4,
+                image: 'https://i.imgur.com/pvWxQ8a.png',
+                title: 'إدارة الإعلانات الممولة',
+                titleEn: 'Sponsored Ads Management',
+                description: 'استراتيجيات إعلانية مدروسة للوصول إلى جمهورك المثالي وتحقيق نتائج ملموسة',
+                descriptionEn: 'Well-planned advertising strategies to reach your target audience and achieve tangible results'
+            },
+            {
+                id: 5,
+                image: 'https://i.imgur.com/Bix5H6T.png',
+                title: 'حلول متكاملة للحسابات',
+                titleEn: 'Integrated Accounting Solutions',
+                description: 'نظم حسابات متطورة لتسهيل إدارة أعمالك وتحسين الأداء المالي',
+                descriptionEn: 'Advanced accounting systems to facilitate your business management and improve financial performance'
+            },
+            {
+                id: 6,
+                image: 'https://i.imgur.com/6etmRX0.png',
+                title: 'تصميمات مبهرة لكل منصاتك',
+                titleEn: 'Amazing Designs for All Your Platforms',
+                description: 'منسقة لتناسب السوشيال ميديا والمطبوعات وكل احتياجاتك التسويقية',
+                descriptionEn: 'Coordinated to suit social media, print, and all your marketing needs'
+            },
+            {
+                id: 7,
+                image: 'https://i.imgur.com/wTeaEIL.png',
+                title: 'تسويق رقمي ذكي',
+                titleEn: 'Smart Digital Marketing',
+                description: 'حملات تسويقية مبتكرة تصل لعملائك في الوقت والمكان المناسبين',
+                descriptionEn: 'Innovative marketing campaigns that reach your customers at the right time and place'
+            },
+            {
+                id: 8,
+                image: 'https://i.imgur.com/TG4ZXxv.png',
+                title: 'محتوى يجذب الانتباه',
+                titleEn: 'Attention-Grabbing Content',
+                description: 'نصوص وصور وفيديوهات تخلق تفاعلًا حقيقيًا مع جمهورك',
+                descriptionEn: 'Texts, images and videos that create real engagement with your audience'
+            },
+            {
+                id: 9,
+                image: 'https://i.imgur.com/y3BOGFh.png',
+                title: 'حلول إعلانية مبتكرة',
+                titleEn: 'Innovative Advertising Solutions',
+                description: 'خطط مدروسة تصل إلى جمهورك بأفضل الطرق وأكثرها فعالية',
+                descriptionEn: 'Well-planned strategies that reach your audience in the best and most effective ways'
+            },
+            {
+                id: 10,
+                image: 'https://i.imgur.com/7GDMn2k.png',
+                title: 'تصميم واجهات مستخدم جذابة',
+                titleEn: 'Attractive User Interface Design',
+                description: 'واجهات سهلة الاستخدام تزيد من تجربة العملاء وتحفزهم على التفاعل',
+                descriptionEn: 'Easy-to-use interfaces that enhance customer experience and encourage interaction'
+            },
+            {
+                id: 11,
+                image: 'https://i.imgur.com/wPtBIky.png',
+                title: 'تصميمات تتحدث عنك',
+                titleEn: 'Designs That Speak About You',
+                description: 'كل شعار وكل تصميم يعكس روح شركتك ورسالتها',
+                descriptionEn: 'Every logo and every design reflects the spirit and message of your company'
+            },
+            {
+                id: 12,
+                image: 'https://i.imgur.com/xN2kcMG.png',
+                title: 'أنظمة حسابات ذكية',
+                titleEn: 'Smart Accounting Systems',
+                description: 'متابعة دقيقة لكل المعاملات المالية لتوفير وقتك وزيادة أرباحك',
+                descriptionEn: 'Accurate tracking of all financial transactions to save your time and increase your profits'
+            },
+            {
+                id: 13,
+                image: 'https://i.imgur.com/eDE15JN.png',
+                title: 'الحملات الإعلانية المدفوعة',
+                titleEn: 'Paid Advertising Campaigns',
+                description: 'نتائج سريعة ومؤثرة باستخدام أحدث تقنيات الاستهداف',
+                descriptionEn: 'Fast and effective results using the latest targeting techniques'
+            },
+            {
+                id: 14,
+                image: 'https://i.imgur.com/vR5xSQ9.png',
+                title: 'محتوى بصري جذاب',
+                titleEn: 'Attractive Visual Content',
+                description: 'صور ورسومات تحكي قصة علامتك بطريقة مبتكرة وجاذبة',
+                descriptionEn: 'Images and graphics that tell your brand story in an innovative and attractive way'
+            },
+            {
+                id: 15,
+                image: 'https://i.imgur.com/sKMb6nN.png',
+                title: 'فيديوهات تعريفية للشركات',
+                titleEn: 'Corporate Introduction Videos',
+                description: 'نبرز مميزات شركتك في فيديو قصير يسهل تذكره ومشاركته',
+                descriptionEn: 'We highlight the features of your company in a short, memorable and shareable video'
+            },
+            {
+                id: 16,
+                image: 'https://i.imgur.com/DRZ8H4c.png',
+                title: 'تعزيز حضورك على الإنترنت',
+                titleEn: 'Enhancing Your Online Presence',
+                description: 'حلول رقمية مبتكرة تزيد من ظهورك وتجذب المزيد من العملاء',
+                descriptionEn: 'Innovative digital solutions that increase your visibility and attract more customers'
+            },
+            {
+                id: 17,
+                image: 'https://i.imgur.com/VSRPjOI.png',
+                title: 'حلول متكاملة لإدارة أعمالك',
+                titleEn: 'Integrated Business Management Solutions',
+                description: 'كل الأدوات والخدمات التي تحتاجها لتسويق أفضل وتحقيق نمو مستدام',
+                descriptionEn: 'All the tools and services you need for better marketing and sustainable growth'
+            },
+            {
+                id: 18,
+                image: 'https://i.imgur.com/3LSHQZZ.png',
+                title: 'فكر خارج الصندوق',
+                titleEn: 'Think Outside the Box',
+                description: 'لأن الإبداع هو طريقنا لنجاح مشروعك، نصمم لك أفكار ما تتنسي',
+                descriptionEn: 'Because creativity is our way to your project success, we design unforgettable ideas for you'
+            },
+            {
+                id: 19,
+                image: 'https://i.imgur.com/nWwcduf.png',
+                title: 'إعلانك... يحكي قصتك',
+                titleEn: 'Your Ad... Tells Your Story',
+                description: 'نصنع إعلانات تنطق باسمك وتخطف انتباه جمهورك من أول ثانية',
+                descriptionEn: 'We create ads that speak on your behalf and grab your audience attention from the first second'
+            },
+            {
+                id: 20,
+                image: 'https://i.imgur.com/3lRw0aZ.png',
+                title: 'موقعك وجهتك الأولى للعالم',
+                titleEn: 'Your Website Is Your First Destination to the World',
+                description: 'نطوّر مواقع إلكترونية تجمع بين الجمال والوظيفة لتبهر زوارك',
+                descriptionEn: 'We develop websites that combine beauty and function to amaze your visitors'
+            },
+            {
+                id: 21,
+                image: 'https://i.imgur.com/udpaR3F.png',
+                title: 'إدارة إعلاناتك بخبرة',
+                titleEn: 'Expert Management of Your Ads',
+                description: 'حملات مدفوعة تحقق نتائج ملموسة وتضاعف أرباحك',
+                descriptionEn: 'Paid campaigns that achieve tangible results and double your profits'
+            },
+            {
+                id: 22,
+                image: 'https://i.imgur.com/Y5KJHdW.png',
+                title: 'تصميمات تشدّ العين',
+                titleEn: 'Eye-Catching Designs',
+                description: 'ألوان مدروسة وتصميم جذاب يعبر عن هويتك ويترك بصمة',
+                descriptionEn: 'Thoughtful colors and attractive design that expresses your identity and leaves a mark'
+            },
+            {
+                id: 23,
+                image: 'https://i.imgur.com/46H6AeA.png',
+                title: 'أنظمة محاسبة متطورة',
+                titleEn: 'Advanced Accounting Systems',
+                description: 'حلول محاسبية ذكية تسهل إدارة أعمالك وتحسن كفاءة العمليات',
+                descriptionEn: 'Smart accounting solutions that facilitate business management and improve operational efficiency'
+            }
+        ];
+
+        // بيانات أولية للتجربة - الروابط معدلة لفتح في نافذة جديدة مباشرة
+        let portfolioItems = [
+            {
+                id: 1,
+                category: 'websites',
+                title: 'تصميم موقع للألعاب القتالية يتميز بالقدرة على تعليم فنون الدفاع عن النفس',
+                titleEn: 'Designing a website for combat games that features the ability to teach martial arts.',
+                description: 'نحاول أن نجعل فنون الدفاع عن النفس سهلة وبسيطة للتعلم والممارسة موقع احترافى بتصميم عصري وجديد يناسب كل الأعمار',
+                descriptionEn: 'We strive to make martial arts easy and simple to learn and practice. Our professional website features a modern and fresh design suitable for all ages.',
+                image: 'https://imgur.com/F9Udapg.png',
+                preview: 'https://courageous-mermaid-dd8ce0.netlify.app/',
+                price: ""
+            },
+            {
+                id: 2,
+                category: 'websites',
+                title: 'موقع تطبيقات الموبايل',
+                titleEn: 'Mobile applications website',
+                description: 'موقع يعمل احترافيا يجعل جهازك المحمول متميزاً على الدوام يسهل عليك الموقع تحميل تطبيقات متميزة تجعلك تشعر بأنك فى عالم من الخيال تطبيقات تقربك من الواقع هذه التطبيقات تعمل بجودة عالية بدون توقف الآن تستطيع فقط أن تكون مميزا جدا',
+                descriptionEn: 'A professionally designed website that keeps your mobile device consistently outstanding. The site makes it easy to download premium apps that transport you to a world of fantasy, apps that bring you closer to reality. These apps operate with high quality and without interruption. Now you can truly stand out.',
+                image: 'https://imgur.com/Pc8Xks2.png',
+                preview: 'https://glittering-dusk-c84ffb.netlify.app/',
+                price: ""
+            },
+            {
+                id: 3,
+                category: 'websites',
+                title: 'موقع أولاد شادي للقرآن الكريم',
+                titleEn: 'Shadi Sons Website for the Holy Quran',
+                description: 'منصة متخصصة في تعليم وتلاوة وحفظ كتاب الله تعالى، تُقدَّم برؤية تجمع بين الأصالة القرآنية والأساليب التعليمية الحديثة.',
+                descriptionEn: 'A platform specializing in teaching and reciting the memorization of the Book of God presented with a collective vision combining Quranic authenticity and modern educational methods',
+                image: 'https://imgur.com/26hmu0t.png',
+                preview: 'https://precious-boba-0d7bdb.netlify.app/',
+                price: ""
+            },
+            {
+                id: 4,
+                category: 'websites',
+                title: 'تصميم موقع الرشاد لخدمات غسيل السيارات بأحدث التقنيات الحديثة',
+                titleEn: 'Al-Rashad Car Wash Services website designed with the latest modern technologies',
+                description: 'سيارتك معنا ترجع وكأنها صنعت من جديد لن تحمل هم سيارتك بعد اليوم مع الرشاد لخدمات غسيل السيارات الرشاد لخدمات غسيل السيارات ثقة وجودة عالية وبأسعار تنافسية متميزة',
+                descriptionEn: 'With us, your car will look brand new again You won\'t have to worry about your car anymore with Al Rashad Car Wash Services Al-Rashad Car Wash Services Trust high quality and competitive prices',
+                image: 'https://imgur.com/tg2VEQI.png',
+                preview: 'https://stunning-platypus-4b42a5.netlify.app/',
+                price: ""
+            },
+            {
+                id: 5,
+                category: 'websites',
+                title: 'موقع أفكار ميديا',
+                titleEn: 'Afkar Media website',
+                description: 'منصة احترافية متطورة لمشاهدة المزيد من الفيديوهات وعمل مشاركة لها أفكار للدعاية أسرار،وأسرارنا تحمل الكثير من الاخبار لخدمة المتابعين مع أفكار ميديا لن تشعر بالملل أبدا ننتظر مروركم الكريم،ويشرفنا رأيكم فى عملنا المتواضع أفكار ميديا....... أسم يعنى الثقة',
+                descriptionEn: 'A sophisticated professional platform for watching and sharing more videos advertising ideas and secrets Our secrets hold a wealth of news to serve our followers. With Afkar Media you\'ll never be bored. We await your kind visit and would be honored by your feedback on our humble work. Afkar Media a name that means trust',
+                image: 'https://imgur.com/ouiKz7R.png',
+                preview: 'https://musical-frangipane-9b0f25.netlify.app/',
+                price: ""
+            },
+            {
+                id: 6,
+                category: 'websites',
+                title: 'اكتشف عالم الإبداع البصري',
+                titleEn: 'Discover the world of visual creativity',
+                description: 'أفضل مجموعة من الصور، الشعارات عالية الجودة لاستخداماتك الشخصية والتجارية',
+                descriptionEn: 'The best collection of high-quality images and logos for your personal and commercial use.',
+                image: 'https://imgur.com/3UbeoWD.png',
+                preview: 'https://peaceful-lollipop-39fd19.netlify.app/',
+                price: ""
+            },
+            {
+                id: 7,
+                category: 'accounting',
+                title: 'نظام إدارة الطلبات',
+                titleEn: 'Order management system',
+                description: 'نظام إدارة الطلبات هو سستم حسابات متكامل تم تصميمه لتنظيم ومتابعة جميع الطلبات من لحظة إنشائها وحتى التسليم والتحصيل، مع ربط كامل بين العملاء، المنتجات، الفواتير، والمدفوعات لضمان دقة البيانات وسهولة الإدارة',
+                descriptionEn: 'The order management system is an integrated accounting system designed to organize and track all orders from the moment they are created until delivery and collection, with full integration between customers, products, invoices, and payments to ensure data accuracy and ease of management.',
+                image: 'https://imgur.com/deybAZq.png',
+                preview: 'https://clinquant-cuchufli-03d589.netlify.app/',
+                price: ""
+            },
+            {
+                id: 8,
+                category: 'accounting',
+                title: 'نظام إدارة حضور الموظفين والرواتب',
+                titleEn: 'Employee attendance and payroll management system',
+                description: 'نظام متكامل لتسجيل الحضور والانصراف وإدارة بيانات الموظفين وحساب الرواتب',
+                descriptionEn: 'An integrated system for recording attendance and departure managing employee data and calculating payroll',
+                image: 'https://imgur.com/IVf3x3b.png',
+                preview: 'https://magenta-paletas-43cbc1.netlify.app/',
+                price: ""
+            },
+            {
+                id: 9,
+                category: 'accounting',
+                title: 'لوحة تحكم ذكية',
+                titleEn: 'Smart control panel',
+                description: 'لوحة تحكم ذكية تُمكّن المدير من متابعة وإدارة جميع عناصر النظام في مكان واحد، مع عرض الإحصائيات والتقارير بشكل مرئي، والتحكم في المستخدمين، والطلبات، والإعدادات بكل سهولة وأمان',
+                descriptionEn: 'A smart control panel enables the manager to monitor and manage all system elements in one place with visual display of statistics and reports and easy and secure control of users requests and settings',
+                image: 'https://imgur.com/Iyjivoi.png',
+                preview: 'https://cozy-sawine-bd3eee.netlify.app/',
+                price: ""
+            },
+            {
+                id: 10,
+                category: 'ads',
+                title: 'إعلان فيسبوك',
+                titleEn: 'Facebook Ad',
+                description: 'تصميم إعلان ممول لفيسبوك مع التركيز على تحقيق التفاعل',
+                descriptionEn: 'Design of a sponsored Facebook ad focused on achieving engagement',
+                image: 'https://imgur.com/6xorwCb.png',
+                preview: 'https://mellifluous-tarsier-63b2da.netlify.app/',
+                price: ""
+            },
+            {
+                id: 11,
+                category: 'ads',
+                title: 'إعلانات إنستجرام',
+                titleEn: 'Instagram ads',
+                description: 'اكتشف مجموعة من الأفكار الإبداعية والتصاميم الجذابة لإعلانات إنستجرام الممولة التي تساعدك على زيادة التفاعل وتحقيق أهدافك التسويقية. كل الأفكار قابلة للتطبيق والتخصيص حسب احتياجاتك',
+                descriptionEn: 'Discover a range of creative ideas and eye-catching designs for paid Instagram ads that will help you boost engagement and achieve your marketing goals. All ideas are adaptable and customizable to your needs.',
+                image: 'https://imgur.com/grUvVsM.png',
+                preview: 'https://silver-beignet-ba07a3.netlify.app/',
+                price: ""
+            },
+            {
+                id: 12,
+                category: 'ads',
+                title: 'حملات إعلانية احترافية على Google Ads',
+                titleEn: 'Professional advertising campaigns on Google Ads',
+                description: 'نحن نقدم خدمات إعلانية متكاملة على Google Ads لزيادة ظهور علامتك التجارية وجلب عملاء محتملين بفعالية عالية. حملات مدروسة ونتائج ملموسة',
+                descriptionEn: 'We offer integrated Google Ads advertising services to increase your brand\'s visibility and effectively attract leads Well planned campaigns and tangible results',
+                image: 'https://imgur.com/UvElGme.png',
+                preview: 'https://calm-cucurucho-88615a.netlify.app/',
+                price: ""
+            },
+            {
+                id: 13,
+                category: 'ads',
+                title: 'أفكار إعلانية مبتكرة لحملات سناب شات الممولة',
+                titleEn: 'Innovative advertising ideas for paid Snapchat campaigns',
+                description: 'نساعدك في تصميم حملات إعلانية ناجحة على سناب شات تستهدف الجمهور في الإمارات العربية المتحدة بشكل فعال، مع أفكار مبتكرة تضمن وصولك لأكبر شريحة من العملاء',
+                descriptionEn: 'We help you design successful Snapchat advertising campaigns that effectively target audiences in the UAE with innovative ideas that ensure you reach the largest possible customer base',
+                image: 'https://imgur.com/xZZL5Pz.png',
+                preview: 'https://cosmic-flan-2148ae.netlify.app/',
+                price: ""
+            },
+            {
+                id: 14,
+                category: 'ads',
+                title: 'أفكار إبداعية للإعلانات الممولة على تيك توك',
+                titleEn: 'Creative ideas for sponsored ads on TikTok',
+                description: 'نقدم أحدث الاستراتيجيات والأفكار المبتكرة للإعلانات الممولة على تيك توك التي تضمن وصولًا أوسع وتفاعلًا أكبر لعملائك في الإمارات العربية المتحدة والمنطقة',
+                descriptionEn: 'We offer the latest strategies and innovative ideas for paid advertising on TikTok that ensure wider reach and greater engagement with your customers in the UAE and the region.',
+                image: 'https://imgur.com/YdCWyUf.png',
+                preview: 'https://darling-brigadeiros-e9b78b.netlify.app/',
+                price: ""
+            },
+            {
+                id: 15,
+                category: 'ads',
+                title: 'إعلانات جوجل بزنس الممولة',
+                titleEn: 'Google Business paid ads',
+                description: 'نقدم حلول إعلانية متكاملة على منصة جوجل بزنس الممولة لتعزيز وجودك الرقمي وجذب المزيد من العملاء المحتملين',
+                descriptionEn: 'We offer integrated advertising solutions on the Google Business platform to enhance your digital presence and attract more potential customers.',
+                image: 'https://imgur.com/VwJoiqL.png',
+                preview: 'https://cozy-begonia-befab4.netlify.app/',
+                price: ""
+            },
+            {
+                id: 16,
+                category: 'videos',
+                title: '1 مقدمة فيديو شركة أفكار',
+                titleEn: 'Introduction video of Afkar Company 1',
+                description: 'شركة أفكار متخصصة في تقديم حلول إبداعية متكاملة في مجال الدعاية والإعلان والتسويق الرقمي. نؤمن أن الفكرة القوية هي أساس أي نجاح، لذلك نعمل على تحويل الأفكار البسيطة إلى مشاريع مؤثرة تترك بصمة حقيقية في السوق',
+                descriptionEn: 'Afkar Company specializes in providing integrated creative solutions in advertising public relations and digital marketing We believe that a strong idea is the foundation of any success so we work to transform simple ideas into impactful projects that leave a real mark on the market',
+                image: 'https://imgur.com/eWGc56g.png',
+                preview: 'https://www.youtube.com/watch?v=UV_5p2ojx2k',
+                price: ""
+            },
+            {
+                id: 17,
+                category: 'videos',
+                title: '2 مقدمة فيديو شركة أفكار  ',
+                titleEn: 'Introduction video of Afkar Company 2',
+                description: 'في أفكار نجمع بين الإبداع، الخبرة، والتقنيات الحديثة لنقدم خدمات تصميم احترافية، صناعة محتوى مرئي، حملات إعلانية ممولة، وبناء هوية متكاملة تساعد العلامات التجارية على النمو والانتشار بثقة        ',
+                descriptionEn: 'At Afkar we combine creativity  experience  and modern technologies to offer professional design services  visual content creation  paid advertising campaigns  and building a comprehensive identity that helps brands grow and expand confidently ',
+                image: 'https://imgur.com/2Y2drK0.png',
+                preview: 'https://www.youtube.com/watch?v=C-h-YtGeQT0',
+                price: ""
+            },
+            {
+                id: 18,
+                category: 'videos',
+                title: ' 3مقدمة فيديو شركة أفكار ',
+                titleEn: '  Introduction video of Afkar Company 3',
+                description: '  نحن في أفكار لا نقدم خدمات فقط، بل نصنع تجارب بصرية وتسويقية متكاملة تبدأ من فهم احتياج العميل وتنتهي بنتائج قابلة للقياس تعزز حضور العلامة التجارية وتزيد من تأثيرها      ',
+                descriptionEn: '  At Afkar we don t just provide services  we create integrated visual and marketing experiences that begin with understanding the customer s needs and end with measurable results that enhance brand presence and increase its impact      ',
+                image: 'https://imgur.com/2Rp8MiM.png',
+                preview: 'https://www.youtube.com/watch?v=yyNfNt6lmzA',
+                price: ""
+            },
+            
+            {
+                id: 19,
+                category: 'videos',
+                title: ' مقدمة فيديو شركة أفكار 4 ',
+                titleEn: ' Introduction video of Afkar Company 4 ',
+                description: '  أفكار هي شريكك الإبداعي في النجاح، نعمل على ابتكار حلول إعلانية ذكية تجمع بين التصميم المميز، الرسائل المؤثرة، والتنفيذ الاحترافي لنصنع محتوى يعبر عنك ويصل لجمهورك بفاعلية      ',
+                descriptionEn: '  Afkar is your creative partner for success We work to create smart advertising solutions that combine distinctive design  impactful messaging  and professional execution to create content that reflects your brand and effectively reaches your audience     ',
+                image: 'https://imgur.com/AbK46fi.png',
+                preview: 'https://www.youtube.com/watch?v=ElRLsPHk4wg',
+                price: ""
+            },
+            {
+                id: 20,
+                category: 'videos',
+                title: ' مقدمة فيديو شركة أفكار 5 ',
+                titleEn: ' Introduction video of Afkar Company 5 ',
+                description: '  بفريق عمل محترف ورؤية واضحة، تقدم أفكار خدمات متكاملة تشمل تصميم الجرافيك، الموشن جرافيك، إنتاج الفيديو، إدارة الحملات الإعلانية، وبناء الهوية البصرية بأسلوب عصري ومؤثر      ',
+                descriptionEn: '   With a professional team and a clear vision  Ideas offers integrated services including graphic design  motion graphics  video production  advertising campaign management  and building a visual identity in a modern and impactful style     ',
+                image: 'https://imgur.com/5rMryGc.png',
+                preview: 'https://www.youtube.com/watch?v=xWiMt9-3KzQ',
+                price: ""
+            },
+            {
+                id: 21,
+                category: 'videos',
+                title: ' مقدمة فيديو شركة أفكار 6 ',
+                titleEn: ' Introduction video of Afkar Company 6 ',
+                description: '   في عالم سريع التغير، تساعدك أفكار على التميز من خلال حلول تسويقية مبتكرة تعتمد على الإبداع، التحليل، واستخدام أحدث الأدوات الرقمية لضمان وصول رسالتك بالشكل الصحيح وفي الوقت المناسب     ',
+                descriptionEn: 'In a rapidly changing world  Afkar helps you stand out through innovative marketing solutions based on creativity  analysis  and the use of the latest digital tools to ensure your message is delivered correctly and at the right time ',
+                image: 'https://imgur.com/wdGfvJw.png',
+                preview: 'https://www.youtube.com/watch?v=G_ehu7ka2Qg',
+                price: ""
+            },
+            
+            
+        ];
+
+        // متغيرات النظام
+        let currentLang = 'ar';
+
+        // العناصر الأساسية
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        const websiteModal = document.getElementById('websiteModal');
+        const videoModal = document.getElementById('videoModal');
+        const websiteFrame = document.getElementById('websiteFrame');
+        const videoContainer = document.getElementById('videoContainer');
+        const modalTitle = document.getElementById('modalTitle');
+        const videoTitle = document.getElementById('videoTitle');
+        const closeModals = document.querySelectorAll('.close-modal');
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const contactForm = document.getElementById('contactForm');
+
+        // Mobile Menu Toggle
+        if (mobileMenuBtn && nav) {
+            mobileMenuBtn.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
+        }
+
+        // تغيير اللغة
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+            
+            langButtons.forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            updateAllTexts();
+        }
+        
+        function updateAllTexts() {
+            document.querySelectorAll('[data-ar], [data-en]').forEach(element => {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    const placeholderAttr = element.getAttribute(`data-${currentLang}-placeholder`);
+                    if (placeholderAttr) {
+                        element.placeholder = placeholderAttr;
+                    }
+                } else {
+                    const text = element.getAttribute(`data-${currentLang}`);
+                    if (text) {
+                        element.textContent = text;
+                    }
+                }
+            });
+            
+            document.querySelectorAll('option').forEach(option => {
+                const text = option.getAttribute(`data-${currentLang}`);
+                if (text) {
+                    option.textContent = text;
+                }
+            });
+            
+            renderPortfolioItems();
+            renderSlider();
+        }
+        
+        // عرض السلايدر المحسن
+        function renderSlider() {
+            const sliderContainer = document.getElementById('sliderContainer');
+            const sliderNav = document.getElementById('sliderNav');
+            
+            if (!sliderContainer || !sliderNav) return;
+            
+            sliderContainer.innerHTML = '';
+            sliderNav.innerHTML = '';
+            
+            sliderItems.forEach((item, index) => {
+                // إنشاء السلايد الجديد
+                const slide = document.createElement('div');
+                slide.className = `slide ${index === 0 ? 'active' : ''}`;
+                
+                // إنشاء عنصر الصورة
+                const slideImage = document.createElement('div');
+                slideImage.className = 'slide-image';
+                
+                const img = document.createElement('img');
+                img.src = item.image;
+                img.alt = currentLang === 'ar' ? item.title : item.titleEn;
+                slideImage.appendChild(img);
+                
+                // إنشاء محتوى النص
+                const slideContent = document.createElement('div');
+                slideContent.className = 'slide-content';
+                slideContent.innerHTML = `
+                    <h2>${currentLang === 'ar' ? item.title : item.titleEn}</h2>
+                    <p>${currentLang === 'ar' ? item.description : item.descriptionEn}</p>
+                `;
+                
+                slide.appendChild(slideImage);
+                slide.appendChild(slideContent);
+                sliderContainer.appendChild(slide);
+                
+                // إنشاء نقطة التنقل
+                const dot = document.createElement('div');
+                dot.className = `slider-dot ${index === 0 ? 'active' : ''}`;
+                dot.setAttribute('data-index', index);
+                sliderNav.appendChild(dot);
+            });
+            
+            // إضافة مستمعي الأحداث للنقاط
+            document.querySelectorAll('.slider-dot').forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    showSlide(index);
+                });
+            });
+            
+            // بدء التشغيل التلقائي
+            startSlider();
+        }
+        
+        let slideInterval;
+        function startSlider() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                nextSlide();
+            }, 5000);
+        }
+        
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            if (slides[index]) slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+        }
+        
+        function nextSlide() {
+            const slides = document.querySelectorAll('.slide');
+            if (slides.length === 0) return;
+            
+            const currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+            const nextIndex = (currentIndex + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+        
+        function prevSlide() {
+            const slides = document.querySelectorAll('.slide');
+            if (slides.length === 0) return;
+            
+            const currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+            const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(prevIndex);
+        }
+        
+        // عرض التصميمات
+        function renderPortfolioItems() {
+            const websitesGrid = document.getElementById('websites-grid');
+            const accountingGrid = document.getElementById('accounting-grid');
+            const adsGrid = document.getElementById('ads-grid');
+            const videosGrid = document.getElementById('videos-grid');
+            
+            if (websitesGrid) websitesGrid.innerHTML = '';
+            if (accountingGrid) accountingGrid.innerHTML = '';
+            if (adsGrid) adsGrid.innerHTML = '';
+            if (videosGrid) videosGrid.innerHTML = '';
+            
+            portfolioItems.forEach(item => {
+                const portfolioItem = document.createElement('div');
+                portfolioItem.className = 'portfolio-item';
+                
+                const isVideo = item.category === 'videos';
+                const playIcon = isVideo ? '<div class="video-play-icon"><i class="fas fa-play"></i></div>' : '';
+                
+                const buttonText = isVideo ? 
+                    (currentLang === 'ar' ? 'مشاهدة الفيديو' : 'Watch Video') : 
+                    (currentLang === 'ar' ? 'عرض التصميم' : 'View Design');
+                
+                portfolioItem.innerHTML = `
+                    <div class="portfolio-img">
+                        <img src="${item.image}" alt="${currentLang === 'ar' ? item.title : item.titleEn}">
+                        ${playIcon}
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>${currentLang === 'ar' ? item.title : item.titleEn}</h3>
+                        <p>${currentLang === 'ar' ? item.description : item.descriptionEn}</p>
+                        <button class="btn view-item" data-id="${item.id}" data-type="${isVideo ? 'video' : 'website'}">
+                            ${buttonText}
+                        </button>
+                    </div>
+                    ${item.price ? `<div class="portfolio-price">$${item.price}</div>` : ''}
+                `;
+                
+                let targetGrid;
+                switch(item.category) {
+                    case 'websites':
+                        targetGrid = websitesGrid;
+                        break;
+                    case 'accounting':
+                        targetGrid = accountingGrid;
+                        break;
+                    case 'ads':
+                        targetGrid = adsGrid;
+                        break;
+                    case 'videos':
+                        targetGrid = videosGrid;
+                        break;
+                }
+                
+                if (targetGrid) {
+                    targetGrid.appendChild(portfolioItem);
+                }
+            });
+            
+            document.querySelectorAll('.view-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = parseInt(this.getAttribute('data-id'));
+                    const itemType = this.getAttribute('data-type');
+                    const item = portfolioItems.find(i => i.id === itemId);
+                    
+                    if (item) {
+                        if (itemType === 'video') {
+                            openVideoPlayer(item);
+                        } else {
+                            openWebsitePreview(item);
+                        }
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.video-play-icon').forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const portfolioItem = this.closest('.portfolio-item');
+                    const viewButton = portfolioItem.querySelector('.view-item');
+                    if (viewButton) {
+                        viewButton.click();
+                    }
+                });
+            });
+        }
+        
+        function openWebsitePreview(item) {
+            if (websiteFrame && modalTitle && websiteModal) {
+                websiteFrame.src = item.preview;
+                modalTitle.textContent = currentLang === 'ar' ? 'معاينة الموقع' : 'Website Preview';
+                websiteModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // وظيفة جديدة: فتح الفيديو في نافذة جديدة مباشرة
+        function openVideoPlayer(item) {
+            if (item.preview.includes('youtube.com') || item.preview.includes('youtu.be')) {
+                // فتح الفيديو في نافذة جديدة مباشرة
+                let watchUrl = item.preview;
+                
+                // تحويل أي رابط إلى رابط مشاهدة عادي على YouTube
+                if (watchUrl.includes('embed/')) {
+                    const videoId = watchUrl.split('embed/')[1].split('?')[0];
+                    watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+                } else if (watchUrl.includes('youtu.be/')) {
+                    const videoId = watchUrl.split('youtu.be/')[1].split('?')[0];
+                    watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
+                }
+                
+                // فتح في نافذة جديدة
+                window.open(watchUrl, '_blank', 'width=800,height=600');
+                return;
+            }
+            
+            // إذا لم يكن الفيديو على YouTube، استخدم المشغل العادي
+            if (videoTitle && videoContainer && videoModal) {
+                videoTitle.textContent = currentLang === 'ar' ? 'مشاهدة الفيديو' : 'Watch Video';
+                videoContainer.innerHTML = '';
+                
+                const video = document.createElement('video');
+                video.src = item.preview;
+                video.controls = true;
+                video.autoplay = true;
+                video.style.width = '100%';
+                video.style.height = '100%';
+                videoContainer.appendChild(video);
+                
+                videoModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // إغلاق جميع النوافذ
+        function closeAllModals() {
+            if (websiteModal) websiteModal.style.display = 'none';
+            if (videoModal) videoModal.style.display = 'none';
+            if (websiteFrame) websiteFrame.src = '';
+            if (videoContainer) videoContainer.innerHTML = '';
+            document.body.style.overflow = 'auto';
+        }
+        
+        if (closeModals.length > 0) {
+            closeModals.forEach(btn => {
+                btn.addEventListener('click', closeAllModals);
+            });
+        }
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === websiteModal || e.target === videoModal) {
+                closeAllModals();
+            }
+        });
+        
+        // تغيير اللغة
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+            });
+        });
+        
+        // إرسال نموذج الاتصال
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert(currentLang === 'ar' ? 'تم إرسال رسالتك بنجاح! سنقوم بالرد عليك قريباً.' : 'Your message has been sent successfully! We will get back to you soon.');
+                this.reset();
+            });
+        }
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    if (nav) nav.classList.remove('active');
+                }
+            });
+        });
+
+        // التهيئة الأولية
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPortfolioItems();
+            renderSlider();
+        });
+    </script>
+</body>
+</html>
